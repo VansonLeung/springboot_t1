@@ -12,19 +12,27 @@ public class StudentSpecification {
     public static Specification<Student> filter(Map<String, String> filters) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
+            List<Predicate> predicatesOr = new ArrayList<>();
 
             filters.forEach((key, value) -> {
                 if (value != null) {
                     if (key.equalsIgnoreCase("name")) {
-                        predicates.add(criteriaBuilder.like(root.get("name"), "%" + value + "%"));
+                        predicatesOr.add(criteriaBuilder.like(root.get("name"), "%" + value + "%"));
                     } else if (key.equalsIgnoreCase("email")) {
-                        predicates.add(criteriaBuilder.like(root.get("email"), "%" + value + "%"));
+                        predicatesOr.add(criteriaBuilder.like(root.get("email"), "%" + value + "%"));
                     } else if (key.equalsIgnoreCase("age")) {
-                        predicates.add(criteriaBuilder.equal(root.get("age"), Integer.parseInt(value)));
+                        predicatesOr.add(criteriaBuilder.equal(root.get("age"), Integer.parseInt(value)));
                     }
                 }
             });
 
+            // Create an 'or' predicate if there are any 'or' conditions
+            if (!predicatesOr.isEmpty()) {
+                Predicate orPredicate = criteriaBuilder.or(predicatesOr.toArray(new Predicate[0]));
+                predicates.add(orPredicate);
+            }
+
+            // Return the final predicate with 'and' conditions
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
     }
