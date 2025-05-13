@@ -26,7 +26,7 @@ public class StudentController {
     @GetMapping
     public ResponseEntity<Page<Student>> getAllStudents(
             @RequestParam Map<String, String> allParams,
-            @PageableDefault(size = 10) Pageable pageable) {
+            @PageableDefault(size = Integer.MAX_VALUE) Pageable pageable) {
 
         Specification<Student> spec = StudentSpecification.filter(allParams);
         Page<Student> students = studentService.getAllStudents(spec, pageable);
