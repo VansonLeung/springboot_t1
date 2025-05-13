@@ -21,7 +21,7 @@ public class StudentSpecification {
                     } else if (key.equalsIgnoreCase("email")) {
                         predicatesOr.add(criteriaBuilder.like(root.get("email"), "%" + value + "%"));
                     } else if (key.equalsIgnoreCase("age")) {
-                        predicatesOr.add(criteriaBuilder.equal(root.get("age"), Integer.parseInt(value)));
+                        predicatesOr.add(criteriaBuilder.equal(root.get("age"), (value)));
                     }
                 }
             });
