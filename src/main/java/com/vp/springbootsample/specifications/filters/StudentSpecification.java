@@ -16,12 +16,10 @@ public class StudentSpecification {
 
             filters.forEach((key, value) -> {
                 if (value != null) {
-                    if (key.equalsIgnoreCase("name")) {
+                    if (key.equalsIgnoreCase("searchKeywords")) {
                         predicatesOr.add(criteriaBuilder.like(root.get("name"), "%" + value + "%"));
-                    } else if (key.equalsIgnoreCase("email")) {
                         predicatesOr.add(criteriaBuilder.like(root.get("email"), "%" + value + "%"));
-                    } else if (key.equalsIgnoreCase("age")) {
-                        predicatesOr.add(criteriaBuilder.equal(root.get("age"), (value)));
+                        try { predicatesOr.add(criteriaBuilder.equal(root.get("age"), Integer.parseInt(value))); } catch (Exception e) { /* */ }
                     }
                 }
             });
