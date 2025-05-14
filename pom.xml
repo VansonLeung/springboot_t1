@@ -53,4 +53,27 @@
 
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.gitlab.haynes</groupId>
+                <artifactId>libsass-maven-plugin</artifactId>
+                <version>0.3.4</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <inputPath>${basedir}/src/main/resources/scss/</inputPath>
+                    <outputPath>${basedir}/src/main/resources/css/</outputPath>
+                    <sourceMapOutputPath>${basedir}/src/main/resources/css/</sourceMapOutputPath>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
