@@ -82,3 +82,32 @@ This will generate the production-ready files in the dist directory.
 
 
 
+## Change deploy folder to ../static:
+Change `vite.config.js` file:
+```
+import { defineConfig } from 'vite'
+import { svelte } from '@sveltejs/vite-plugin-svelte'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [svelte()],
+  build: {
+    outDir: "../static",
+    emptyOutDir: true,
+  },
+})
+```
+
+
+
+
+## Build the Project:
+When you're ready to deploy, run:
+```
+npm run build
+```
+This will generate the production-ready files in the /static directory.
+
+
+
+
